@@ -1,0 +1,50 @@
+﻿@using Lanchonete.Models
+@model List<Lanche>
+@{
+    ViewData["Title"] = "Gerenciar Promoções";
+}
+@section Scripts {
+    <script type="text/javascript">
+        var URLActionAlterarPromocaoLanche = "@Url.Action("ActionAlterarPromocaoLanche")";
+    </script>
+    <script src="~/js/promocao/promocao.js" asp-append-version="true"></script>
+}
+
+<h1>Gerenciar Promoções</h1>
+<div>
+    <table id="tableListaLanches" class="table">
+        <thead>
+            <tr>
+                <th>Lanches</th>
+            </tr>
+            <tr>
+                <th>Nome</th>
+                <th>Ingredientes</th>
+                <th>Preço</th>
+                <th>Promoção Ativa</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var lanche in Model) {
+                <tr id="@lanche.Id">
+                    <td>@lanche.Nome</td>
+                    <td>@string.Join(", ", lanche.Ingredientes.Select(i => i.Nome))</td>
+                    <td>@lanche.ValorTotal</td>
+                    <td id=@string.Format("{0}-{1}", "tdPromo", @lanche.Id)>@lanche.Promocao</td>
+                    <td>
+                        <select id="@lanche.Id" class="form-control" onchange="SetPromocaoLanche(@lanche.Id, value)">
+                            @foreach (var promocao in ViewBag.PromocoesList) {
+                                if (lanche.Promocao == promocao) {
+                                    <option value="@promocao" selected>@promocao</option>
+                                }
+                                else {
+                                    <option value="@promocao">@promocao</option>
+                                }
+                            }
+                        </select>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
