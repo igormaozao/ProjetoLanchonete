@@ -18,27 +18,32 @@ namespace Lanchonete.DAO {
             DBIngrediente.Add(new Ingrediente() {
                 Id = 1,
                 Nome = "Alface",
-                Valor = 0.40m
+                Valor = 0.40m,
+                Tipo = ETipoAlimento.Vegetal
             });
             DBIngrediente.Add(new Ingrediente() {
                 Id = 2,
                 Nome = "Bacon",
-                Valor = 2.00m
+                Valor = 2.00m,
+                Tipo = ETipoAlimento.Carne
             });
             DBIngrediente.Add(new Ingrediente() {
                 Id = 3,
-                Nome = "Hambúrguer de Carne",
-                Valor = 3.00m
+                Nome = "Hamburguer de Carne",
+                Valor = 3.00m,
+                Tipo = ETipoAlimento.Carne
             });
             DBIngrediente.Add(new Ingrediente() {
                 Id = 4,
                 Nome = "Ovo",
-                Valor = 0.80m
+                Valor = 0.80m,
+                Tipo = ETipoAlimento.Outros
             });
             DBIngrediente.Add(new Ingrediente() {
                 Id = 5,
                 Nome = "Queijo",
-                Valor = 1.50m
+                Valor = 1.50m,
+                Tipo = ETipoAlimento.Queijo
             });
             #endregion
 
@@ -81,6 +86,11 @@ namespace Lanchonete.DAO {
                     DBIngrediente[2], //Hamburguer Carne
                     DBIngrediente[4]  //Queijo
                 }
+            });
+            DBLanche.Add(new Lanche() {
+                Id = 5,
+                Nome = "Personalizado",
+                Ingredientes = new List<Ingrediente>()
             });
             #endregion
 

@@ -19,7 +19,15 @@ namespace Lanchonete.BLL {
                 throw new Exception("Lanche inválido");
             }
 
-            return Database.DBLanche.First(l => l.Id == idLanche);
+            return Database.DBLanche.First(l => l.Id == idLanche).Clone();
+        }
+
+        public Lanche GetLanche(string nomeLanche) {
+            if (!Database.DBLanche.Any(l => l.Nome == nomeLanche)) {
+                throw new Exception("Lanche inválido");
+            }
+
+            return Database.DBLanche.First(l => l.Nome == nomeLanche).Clone();
         }
 
         public bool SetPromocaoLanche(int idLanche, string nomePromocao) {

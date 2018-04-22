@@ -14,5 +14,12 @@ namespace Lanchonete.Models {
             [Display(Name = "Muito Queijo")]
             MuitoQueijo
         }
+
+        public enum ETipoAlimento {
+            Carne,
+            Queijo,
+            Vegetal,
+            Outros
+        }
     }
 }

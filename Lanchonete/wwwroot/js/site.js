@@ -4,5 +4,9 @@ function randomID() {
 }
 
 function floatToMoedaReal(valor) {
-    return `R$ ${valor.toFixed(2)}`;
+    return `R$${valor.toFixed(2)}`;
+}
+
+function removerEspacos(texto) {
+    return texto.replace(/\s+/g, '');
 }

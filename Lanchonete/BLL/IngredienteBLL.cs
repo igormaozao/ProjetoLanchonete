@@ -12,5 +12,13 @@ namespace Lanchonete.BLL {
         public List<Ingrediente> GetListaIngredientes() {
             return Database.DBIngrediente.ToList();
         }
+
+        public Ingrediente GetIngrediente(string nomeIngrediente) {
+            if(!Database.DBIngrediente.Any(i => i.Nome == nomeIngrediente)) {
+                throw new Exception("Nome do ingrediente inválido");
+            }
+
+            return Database.DBIngrediente.First(i => i.Nome == nomeIngrediente).Clone();
+        }
     }
 }

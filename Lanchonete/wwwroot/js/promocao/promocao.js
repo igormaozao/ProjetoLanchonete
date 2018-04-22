@@ -4,7 +4,7 @@ function SetPromocaoLanche(idLanche, nomePromocao) {
         URLActionAlterarPromocaoLanche,
         { idLanche, nomePromocao },
         function (res) {
-            if (res && res.success == true) {
+            if (res && res.success === true) {
                 alert("Promoção alterada com sucesso!");
                 $(`#tdPromo-${idLanche}`)[0].innerHTML = nomePromocao;
             }

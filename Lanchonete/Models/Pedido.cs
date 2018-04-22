@@ -18,5 +18,6 @@ namespace Lanchonete.Models {
             }
         }
 
+        public Pedido() { Lanches = new List<Lanche>(); }
     }
 }

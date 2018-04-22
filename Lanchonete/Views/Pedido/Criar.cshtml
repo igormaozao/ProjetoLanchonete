@@ -6,7 +6,11 @@
 @section Scripts {
     <script type="text/javascript">
         var URLActionGetLanche = "@Url.Action("ActionGetLanche")";
+        var URLActionCalcularDescontoLanche = "@Url.Action("ActionCalcularDescontoLanche")";
+        var URLActionCriarPedido = "@Url.Action("ActionCriarPedido")";
+        var DadosIngredientes = @Json.Serialize(ViewBag.ListaIngredientes);
         var LanchesTabela = new Object();
+        var LancheAtual = new Object();
     </script>
     <script src="~/js/pedido/criarPedido.js" asp-append-version="true"></script>
 }
@@ -19,10 +23,8 @@
         @foreach(var lanche in Model) {
             <option value="@lanche.Id">@lanche.Nome</option>
         }
-
-        <option value="-1">Personalizado</option>
     </select>
-    <button class="btn" onclick="AdicionarLancheListaPedido()">Adicionar lanche</button>
+    <button class="btn btn-info" onclick="AdicionarLancheListaPedido()">Adicionar lanche</button>
 </div>
 
 <div id="divListaLanches" style="margin-top: 20px">
@@ -30,16 +32,28 @@
         <thead>
             <tr><th>Lanches</th></tr>
             <tr>
+                <th />
                 <th>Nome</th>
-                <th style="width: 60%">Ingredientes</th>
-                <th>Valor</th>
+                <th style="width: 50%">Ingredientes</th>
+                <th>Desconto</th>
+                <th>Valor Total</th>
                 <th />
             </tr>
         </thead>
         <tbody id="tBodyListaLanches">
-
+            <tr>
+                <td>Não há lanches adicionados</td>
+            </tr>
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" />
+                <th>Valor Total Pedido:</th>
+                <td id="tdValorTotalPedido"> R$0.00</td>
+            </tr>
+        </tfoot>
     </table>
+    <button class="btn btn-success" onclick="CriarPedido()">Criar Pedido</button>
 </div>
 
 <!-- Modal -->
@@ -53,14 +67,27 @@
                 <h4 class="modal-title">Ingredientes</h4>
             </div>
             <div class="modal-body">
-                <div>
+                <div style="display: flex; width: 720px">
                     <label>Adicionar Ingrediente</label>
-                    <select class="form-control">
+                    <select id="selectIngrediente" class="form-control">
                         @foreach (var ingrediente in ViewBag.ListaIngredientes) {
                             <option value="@ingrediente.Nome" selected>@ingrediente.Nome - R$@ingrediente.Valor</option>
                         }
                     </select>
-                    <button id="btnAdicionarIngrediente" class="btn btn-info">Adicionar Ingrediente</button>
+                    <button id="btnAdicionarIngrediente" class="btn btn-info" onclick="adicionarIngrediente()">Adicionar Ingrediente</button>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Quantidade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tBodyListaIngredientes">
+
+                        </tbody>
+                    </table>
                 </div>
             </div>
             <div class="modal-footer">

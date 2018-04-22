@@ -12,5 +12,10 @@ namespace Lanchonete.BLL {
         public List<Pedido> GetListaPedidos() {
             return Database.DBPedido.ToList();
         }
+
+        public void SalvarPedido(Pedido pedido) {
+            pedido.Id = (uint)Database.DBPedido.Count + 1;
+            Database.DBPedido.Add(pedido);
+        }
     }
 }
