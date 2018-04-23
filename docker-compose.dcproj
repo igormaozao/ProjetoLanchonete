@@ -3,7 +3,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>0296178c-2f55-4a52-921d-b4b14d68e240</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
-    <DockerServiceUrl>http://localhost:{ServicePort}</DockerServiceUrl>
+    <DockerServiceUrl>http://{ServiceIPAddress}</DockerServiceUrl>
     <DockerServiceName>lanchonete</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>

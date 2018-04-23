@@ -6,3 +6,14 @@ services:
     build:
       context: ./Lanchonete
       dockerfile: Dockerfile
+    expose:
+      - "57700"
+
+  proxy:
+    build:
+      context: ./Nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    links:
+     - lanchonete
