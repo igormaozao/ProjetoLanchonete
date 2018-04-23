@@ -65,8 +65,7 @@ namespace Lanchonete.Teste {
                 Ingredientes = new List<Ingrediente>() {
                     new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne },
                     new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo }
-                },
-                Promocao = ETipoPromocao.Light
+                }
             };
             Assert.True(lanche.ValorDesconto == 0.0m, "O valor do X-Burger Light não corresponde.");
 
@@ -77,12 +76,12 @@ namespace Lanchonete.Teste {
                     new Ingrediente() { Id = 1, Nome = "Alface", Valor = 0.40m, Tipo = ETipoAlimento.Vegetal },
                     new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne },
                     new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo }
-                },
-                Promocao = ETipoPromocao.Light
+                }
             };
 
             var valorDesconto = lanche.Ingredientes.Sum(i => i.Valor * i.Quantidade) * 0.10m;
             Assert.True(lanche.ValorDesconto == valorDesconto, "O valor do X-Burger Light não corresponde.");
+            Assert.True(lanche.PromocoesAtivas.Any(p => p == "Light"), "O X-Burger não possui a promoção Light quando deveria.");
         }
 
         [Fact]
@@ -93,22 +92,23 @@ namespace Lanchonete.Teste {
                 Ingredientes = new List<Ingrediente>() {
                     new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 2 },
                     new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo, Quantidade = 6 }
-                },
-                Promocao = ETipoPromocao.MuitaCarne
+                }
             };
-            Assert.True(lanche.ValorDesconto == 0.0m, "O valor do X-Burger MuitaCarne não corresponde.");
+            var valorDesconto = lanche.ValorDesconto;
+            Assert.True(valorDesconto > 0, "O desconto do X-Burger MuitaCarne não corresponde.");
+            Assert.False(lanche.PromocoesAtivas.Any(p => p == "Muita Carne"), "O X-Burger possui a promoção MuitaCarne quando não deveria.");
 
             lanche = new Lanche() {
                 Id = 1,
                 Nome = "X-Burger",
                 Ingredientes = new List<Ingrediente>() {
                     new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 3 },
-                    new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo }
-                },
-                Promocao = ETipoPromocao.MuitaCarne
+                    new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo, Quantidade = 3 }
+                }
             };
-
-            Assert.True(lanche.ValorDesconto == 3.0m, "O valor descontado do X-Burger MuitaCarne não corresponde.");
+            valorDesconto = lanche.ValorDesconto;
+            Assert.True(valorDesconto > 0, "O desconto do X-Burger MuitaCarne não corresponde.");
+            Assert.True(lanche.PromocoesAtivas.Any(p => p == "Muita Carne"), "O X-Burger não possui a promoção MuitaCarne quando deveria.");
         }
 
         [Fact]
@@ -117,12 +117,13 @@ namespace Lanchonete.Teste {
                 Id = 1,
                 Nome = "X-Burger",
                 Ingredientes = new List<Ingrediente>() {
-                    new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 5 },
+                    new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 2 },
                     new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo, Quantidade = 2 }
-                },
-                Promocao = ETipoPromocao.MuitoQueijo
+                }
             };
-            Assert.True(lanche.ValorDesconto == 0.0m, "O valor descontado do X-Burger MuitoQueijo não corresponde.");
+            var valorDesconto = lanche.ValorDesconto;
+            Assert.True(valorDesconto == 0, "O desconto do X-Burger MuitoQueijo não corresponde.");
+            Assert.False(lanche.PromocoesAtivas.Any(p => p == "Muito Queijo"), "O X-Burger não possui a promoção MuitoQueijo quando deveria.");
 
             lanche = new Lanche() {
                 Id = 1,
@@ -130,22 +131,12 @@ namespace Lanchonete.Teste {
                 Ingredientes = new List<Ingrediente>() {
                     new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 6 },
                     new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo, Quantidade = 4 }
-                },
-                Promocao = ETipoPromocao.MuitoQueijo
+                }
             };
+            valorDesconto = lanche.ValorDesconto;
+            Assert.True(valorDesconto > 0, "O desconto do X-Burger MuitoQueijo não corresponde.");
+            Assert.True(lanche.PromocoesAtivas.Any(p => p == "Muito Queijo"), "O X-Burger não possui a promoção MuitoQueijo quando deveria.");
 
-            Assert.True(lanche.ValorDesconto == 1.5m, "O valor descontado do X-Burger MuitoQueijo não corresponde.");
-
-            lanche = new Lanche() {
-                Id = 1,
-                Nome = "X-Burger",
-                Ingredientes = new List<Ingrediente>() {
-                    new Ingrediente() { Id = 3, Nome = "Hamburguer de Carne", Valor = 3.00m, Tipo = ETipoAlimento.Carne, Quantidade = 6 },
-                    new Ingrediente() { Id = 5, Nome = "Queijo", Valor = 1.50m, Tipo = ETipoAlimento.Queijo, Quantidade = 5 }
-                },
-                Promocao = ETipoPromocao.Nenhuma
-            };
-            Assert.True(lanche.ValorDesconto == 0.0m, "O valor descontado do X-Burger não corresponde pois não está em promoção.");
         }
     }
 }

@@ -21,8 +21,8 @@ namespace Lanchonete.Controllers {
         [HttpPost]
         public JsonResult ActionAlterarPromocaoLanche(int idLanche, string nomePromocao) {
 
-            var lancheBLL = new LancheBLL();
-            lancheBLL.SetPromocaoLanche(idLanche, nomePromocao);
+            //var lancheBLL = new LancheBLL();
+            //lancheBLL.SetPromocaoLanche(idLanche, nomePromocao);
 
             return Json(new {
                 success = true

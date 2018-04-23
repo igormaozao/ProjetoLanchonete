@@ -47,6 +47,9 @@ function listarLanchesPedido() {
     Object.keys(LanchesTabela).map((key) => {
         let lanche = LanchesTabela[key];
         let ingredientes = lanche.ingredientes.map(i => `${i.quantidade || 1} ${i.nome}`).join(", ");
+        if (lanche.promocoesAtivas.length > 0) {
+            ingredientes += ` - Promoção! <span class="label label-success">${lanche.promocoesAtivas.map(p => p).join(", ")}</span>`;
+        }
         valorTotal += lanche.valorTotal;
 
         tabela.insertRow(-1).innerHTML = `
@@ -77,6 +80,7 @@ function listarIngredientesLanche(lanche) {
 
             tabela.insertRow(-1).innerHTML = `
                 <tr>
+                    <td><button type="button" class="btn-sm btn-danger glyphicon glyphicon-remove" onclick="removerIngrediente('${ingrediente.nome}')" /></td>
                     <td>${ingrediente.nome}</td>
                     <td><input id="${removerEspacos(ingrediente.nome)}" type="number" min="1" max="10" class="form-control input-number" value="${ingrediente.quantidade || 1}" onchange="setQuantidadeIngrediente('${ingrediente.nome}')"></td>
                 </tr>`;
@@ -114,6 +118,11 @@ function adicionarIngrediente() {
     }
 
     listarIngredientesLanche(LancheAtual);
+}
+
+function removerIngrediente(nomeIngrediente) {
+    LanchesTabela[LancheAtual.UID].ingredientes = LanchesTabela[LancheAtual.UID].ingredientes.filter(i => i.nome !== nomeIngrediente);
+    listarIngredientesLanche(LanchesTabela[LancheAtual.UID]);
 }
 
 $(function () {

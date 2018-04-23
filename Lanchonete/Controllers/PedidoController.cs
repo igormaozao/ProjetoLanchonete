@@ -53,6 +53,7 @@ namespace Lanchonete.Controllers
                 ingrediente.Quantidade = i.Quantidade;
                 novoLanche.Ingredientes.Add(ingrediente);
             });
+            novoLanche.CalcularDesconto();
 
             return Json(new {
                 success = true,
@@ -79,6 +80,7 @@ namespace Lanchonete.Controllers
                     novoLanche.Ingredientes.Add(ingrediente);
                 });
 
+                novoLanche.CalcularDesconto();
                 novoPedido.Lanches.Add(novoLanche);
             }
 

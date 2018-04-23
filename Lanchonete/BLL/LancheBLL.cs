@@ -30,20 +30,5 @@ namespace Lanchonete.BLL {
             return Database.DBLanche.First(l => l.Nome == nomeLanche).Clone();
         }
 
-        public bool SetPromocaoLanche(int idLanche, string nomePromocao) {
-
-            ETipoPromocao promocao = ETipoPromocao.Nenhuma;
-            if(!Enum.TryParse(nomePromocao, out promocao)){
-                throw new Exception("Nome da promoção inválido");
-            }
-
-            if(!Database.DBLanche.Any(l => l.Id == idLanche)) {
-                throw new Exception("Lanche inválido");
-            }
-
-            Database.DBLanche.First(l => l.Id == idLanche).Promocao = promocao;
-
-            return true;
-        }
     }
 }
