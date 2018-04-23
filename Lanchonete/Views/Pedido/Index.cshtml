@@ -23,7 +23,7 @@
                 <tr id="@pedido.Id">
                     <td>@pedido.Id</td>
                     <td>@string.Join(", ", pedido.Lanches.Select(l => l.Nome))</td>
-                    <td>@pedido.ValorTotal</td>
+                    <td>@pedido.ValorTotal.ToString("R$ ##.##")</td>
                 </tr>
             }
         </tbody>
