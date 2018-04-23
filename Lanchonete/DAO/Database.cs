@@ -66,7 +66,8 @@ namespace Lanchonete.DAO {
                 Ingredientes = new List<Ingrediente>() {
                     DBIngrediente[2], //Hamburguer Carne
                     DBIngrediente[4]  //Queijo
-                }
+                },
+                Promocao = ETipoPromocao.MuitoQueijo
             });
             DBLanche.Add(new Lanche() {
                 Id = 3,
@@ -75,7 +76,8 @@ namespace Lanchonete.DAO {
                     DBIngrediente[3], //Ovo
                     DBIngrediente[2], //Hamburguer Carne
                     DBIngrediente[4]  //Queijo
-                }
+                },
+                Promocao = ETipoPromocao.Light
             });
             DBLanche.Add(new Lanche() {
                 Id = 4,
